@@ -1,0 +1,11 @@
+[project]
+name = "literate-tribble"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = "==3.12.*"
+dependencies = [
+    "mediapipe==0.10.21",
+    "opencv-python",
+    "scikit-learn",
+]
