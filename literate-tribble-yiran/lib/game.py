@@ -23,10 +23,10 @@ class Game:
         self.round_on_going: bool = False
 
     def judge(self):
-        # if self.player_a.gesture == self.player_b.gesture:
-            # self.player_a.score += 1
-            # self.player_b.score += 1
-        if (
+        if self.player_a.gesture == self.player_b.gesture:
+            self.player_a.score += 0
+            self.player_b.score += 0
+        elif (
             self.player_a.gesture == Gesture.ROCK
             and self.player_b.gesture == Gesture.SCISSORS
         ):
@@ -41,5 +41,5 @@ class Game:
             and self.player_b.gesture == Gesture.PAPER
         ):
             self.player_a.score += 1
-        # else:
-        #     self.player_b.score += 1
+        else:
+            self.player_b.score += 1

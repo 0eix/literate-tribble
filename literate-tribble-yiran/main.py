@@ -43,7 +43,7 @@ def main():
 
     start_time = time.time()
 
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
 
     try:
         while cap.isOpened():
