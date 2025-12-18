@@ -2,9 +2,9 @@ from enum import Enum
 
 
 class Gesture(Enum):
-    ROCK = "Closed_Fist"
-    PAPER = "Open_Palm"
-    SCISSORS = "Victory"
+    ROCK = "rock"
+    PAPER = "paper"
+    SCISSORS = "scissors"
 
 
 class Player:
@@ -23,10 +23,10 @@ class Game:
         self.round_on_going: bool = False
 
     def judge(self):
-        if self.player_a.gesture == self.player_b.gesture:
-            self.player_a.score += 1
-            self.player_b.score += 1
-        elif (
+        # if self.player_a.gesture == self.player_b.gesture:
+            # self.player_a.score += 1
+            # self.player_b.score += 1
+        if (
             self.player_a.gesture == Gesture.ROCK
             and self.player_b.gesture == Gesture.SCISSORS
         ):
@@ -41,5 +41,5 @@ class Game:
             and self.player_b.gesture == Gesture.PAPER
         ):
             self.player_a.score += 1
-        else:
-            self.player_b.score += 1
+        # else:
+        #     self.player_b.score += 1

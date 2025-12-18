@@ -32,17 +32,11 @@ def preprocess_landmark(landmark):
 
 def decode_prediction(prediction):
     gesture = ['paper', 'rock', 'scissors','None']
-    ROCK = "Closed_Fist"
-    PAPER = "Open_Palm"
-    SCISSORS = "Victory"
-    gesture = [PAPER,ROCK,SCISSORS,"None"]
     if (prediction>.8).any():
         ind = np.argmax(prediction)
     else:
         ind = 3
     return gesture[ind]
-
-
 
 def main():
     init_dir(APP_ROOT_DIR)
@@ -144,6 +138,9 @@ def main():
                                 # Set min (x,y) to (0,0)
                                 left_landmark_processed = preprocess_landmark(left_landmark)
                                 right_landmark_processed = preprocess_landmark(right_landmark)
+                                # Invert x values for right player
+                                right_landmark_processed[:, 0::2] -= np.max(right_landmark_processed[:, 0::2], axis=1, keepdims=True)
+                                right_landmark_processed = np.abs(right_landmark_processed)
                                 # Predict the probabilities of ['paper', 'rock', 'scissors']
                                 prediction_left = modelNN.predict(left_landmark_processed,verbose=0)
                                 prediction_right = modelNN.predict(right_landmark_processed,verbose=0)
