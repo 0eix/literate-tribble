@@ -3,6 +3,8 @@ import numpy as np
 from mediapipe import solutions
 from mediapipe.framework.formats import landmark_pb2
 
+from . import assets
+
 MARGIN = 10  # pixels
 FONT_SIZE = 1
 FONT_THICKNESS = 1
@@ -11,14 +13,12 @@ HANDEDNESS_TEXT_COLOR = (88, 205, 54)  # vibrant green
 
 def draw_landmarks_on_image(rgb_image, detection_result):
     hand_landmarks_list = detection_result.hand_landmarks
-    handedness_list = detection_result.handedness
     gestures_list = detection_result.gestures
     annotated_image = np.copy(rgb_image)
 
     # Loop through the detected hands to visualize.
     for idx in range(len(hand_landmarks_list)):
         hand_landmarks = hand_landmarks_list[idx]
-        handedness = handedness_list[idx]
         gestures = gestures_list[idx]
 
         # Draw the hand landmarks.

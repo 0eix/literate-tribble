@@ -18,13 +18,12 @@ def result_callback(
 ):
     global latest_result, is_processing
     latest_result = result
-    print("gesture recognition result: {}".format(result))
     is_processing = False
 
 
-def init_model_dir(model_path: str):
+def init_model_dir(model_dir: str):
     global MODEL_DIR
-    MODEL_DIR = model_path
+    MODEL_DIR = model_dir
 
 
 def get_gesture_recognizer() -> vision.GestureRecognizer:  # pyright: ignore
