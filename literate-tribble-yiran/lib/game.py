@@ -26,20 +26,25 @@ class Game:
         if self.player_a.gesture == self.player_b.gesture:
             self.player_a.score += 0
             self.player_b.score += 0
+            return 0
         elif (
             self.player_a.gesture == Gesture.ROCK
             and self.player_b.gesture == Gesture.SCISSORS
         ):
             self.player_a.score += 1
+            return 1
         elif (
             self.player_a.gesture == Gesture.PAPER
             and self.player_b.gesture == Gesture.ROCK
         ):
             self.player_a.score += 1
+            return 1
         elif (
             self.player_a.gesture == Gesture.SCISSORS
             and self.player_b.gesture == Gesture.PAPER
         ):
             self.player_a.score += 1
+            return 1
         else:
             self.player_b.score += 1
+            return 2

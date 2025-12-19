@@ -7,7 +7,7 @@ import pickle
 from lib import game, gui, init_dir, models
 from lib.utils import draw_landmarks_on_image
 from scipy.signal import argrelextrema
-
+import matplotlib.pyplot as plt
 APP_ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -33,7 +33,7 @@ def preprocess_landmark(landmark):
 
 def decode_prediction(prediction):
     gesture = ['paper', 'rock', 'scissors','None']
-    if (prediction>.8).any():
+    if (prediction>.6).any():
         ind = np.argmax(prediction)
     else:
         ind = 3
@@ -119,12 +119,12 @@ def main():
     PREDICT_DELAY_FRAMES = int(2 * fps)  # ~0.5 seconds
     round_start_frame = None
     h, w =  100,100
-    gesture_up = cv2.imread("literate-tribble-yiran/assets/up_image.png")
-    gesture_down = cv2.imread("literate-tribble-yiran/assets/down_image.png")
+    gesture_up = (255*plt.imread("literate-tribble-yiran/assets/up_image.png")).astype(np.uint8)
+    gesture_down = (255*plt.imread("literate-tribble-yiran/assets/down_image.png")).astype(np.uint8)
     gesture_up = cv2.resize(gesture_up, (w, h))
     gesture_down = cv2.resize(gesture_down, (w, h))
     x_img, y_img = 160, 20  # top-left corner
-
+    colors_squares = []
 
     last_result = None
     try:
@@ -191,7 +191,7 @@ def main():
                                 (280, 80),
                                 cv2.FONT_HERSHEY_SIMPLEX,
                                 1.25,
-                                (0, 255, 0),
+                                (50, 60, 50),
                                 3
                             )
                         
@@ -240,11 +240,11 @@ def main():
                         cv2.putText(
                             result_image,
                             "Hold gesture...",
-                            (30, 60),
+                            (200,150),
                             cv2.FONT_HERSHEY_SIMPLEX,
-                            1,
-                            (0, 255, 255),
-                            2,
+                            1.5,
+                            (30, 30, 230),
+                            3,
                         )
                 else:
                     if models.latest_result and len(models.latest_result.gestures) == 2:
@@ -281,12 +281,36 @@ def main():
                             
                             PLAYER1.gesture = game.Gesture(gest_left)
                             PLAYER2.gesture = game.Gesture(gest_right)
-                            GAME.judge()
+                            judgement = GAME.judge()
+                            if judgement == 0:
+                                colors_squares = [(220,220,220),(220,220,220)]
+                            elif judgement == 1:
+                                colors_squares = [(20,220,50),(20,50,220)]
+                            elif judgement == 2:
+                                colors_squares = [(20,50,220),(22,220,50)]
+                            
+                            
+
                         except ValueError as e:
                             print(f"Invalid gesture: {e}")
                         print("Round over")
                         GAME.round_on_going = False
             # result_image = draw_plot(result_image, history_CoM)
+            if colors_squares:
+                cv2.rectangle(
+                                result_image,
+                                (10, 150),       # top-left corner (x, y)
+                                (50, 190),     # bottom-right corner (x, y)
+                                colors_squares[0],    # BGR color (green)
+                                -1               # thickness (use -1 to fill)
+                            )
+                cv2.rectangle(
+                                result_image,
+                                (image.shape[1]-50, 150),       # top-left corner (x, y)
+                                (image.shape[1]-10, 190),     # bottom-right corner (x, y)
+                                colors_squares[1],    # BGR color (green)
+                                -1               # thickness (use -1 to fill)
+                                        )
             cv2.imshow("MediaPipe", result_image)
             
             if cv2.waitKey(5) & 0xFF == ord("q"):
