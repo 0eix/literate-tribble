@@ -7,6 +7,12 @@ ICON_SIZE = 64
 
 
 def draw_interface(image, player1: Player, player2: Player):
+    if player1.score>player2.score:
+        color_score = [(20,230,40),(20,40,230)]
+    elif player1.score == player2.score:
+        color_score = [(230,30,40),(230,30,40)]
+    else:
+        color_score = [(20,40,230),(20,230,40)]
     # Player 1
     icon_person = cv2.resize(assets.get_asset("person"), (ICON_SIZE, ICON_SIZE))
     image[10 : 10 + ICON_SIZE, 10 : 10 + ICON_SIZE][icon_person == 0] = icon_person[
@@ -19,7 +25,7 @@ def draw_interface(image, player1: Player, player2: Player):
         (10, 10 + ICON_SIZE + 20),
         cv2.FONT_HERSHEY_SIMPLEX,
         0.5,
-        (0, 0, 255),
+        color_score[0],
         2,
     )
 
@@ -29,7 +35,7 @@ def draw_interface(image, player1: Player, player2: Player):
         (10 + ICON_SIZE + 20, 10 + ICON_SIZE + 20),
         cv2.FONT_HERSHEY_SIMPLEX,
         2.5,
-        (0, 0, 255),
+        color_score[0],
         2,
     )
 
@@ -55,7 +61,7 @@ def draw_interface(image, player1: Player, player2: Player):
         (image.shape[1] - ICON_SIZE - 10, 10 + ICON_SIZE + 20),
         cv2.FONT_HERSHEY_SIMPLEX,
         0.5,
-        (0, 0, 255),
+        color_score[1],
         2,
     )
     image = cv2.putText(
@@ -67,7 +73,7 @@ def draw_interface(image, player1: Player, player2: Player):
         ),
         cv2.FONT_HERSHEY_SIMPLEX,
         2,
-        (0, 0, 255),
+        color_score[1],
         2,
     )
 

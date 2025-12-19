@@ -300,14 +300,14 @@ def main():
                 cv2.rectangle(
                                 result_image,
                                 (10, 150),       # top-left corner (x, y)
-                                (50, 190),     # bottom-right corner (x, y)
+                                (40, 180),     # bottom-right corner (x, y)
                                 colors_squares[0],    # BGR color (green)
                                 -1               # thickness (use -1 to fill)
                             )
                 cv2.rectangle(
                                 result_image,
-                                (image.shape[1]-50, 150),       # top-left corner (x, y)
-                                (image.shape[1]-10, 190),     # bottom-right corner (x, y)
+                                (image.shape[1]-40, 150),       # top-left corner (x, y)
+                                (image.shape[1]-10, 180),     # bottom-right corner (x, y)
                                 colors_squares[1],    # BGR color (green)
                                 -1               # thickness (use -1 to fill)
                                         )
