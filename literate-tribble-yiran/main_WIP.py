@@ -118,12 +118,12 @@ def main():
     frame_id = 0
     PREDICT_DELAY_FRAMES = int(2 * fps)  # ~0.5 seconds
     round_start_frame = None
-    h, w =  150,150
+    h, w =  100,100
     gesture_up = cv2.imread("literate-tribble-yiran/assets/up_image.png")
     gesture_down = cv2.imread("literate-tribble-yiran/assets/down_image.png")
     gesture_up = cv2.resize(gesture_up, (w, h))
     gesture_down = cv2.resize(gesture_down, (w, h))
-    x_img, y_img = 200, 50  # top-left corner
+    x_img, y_img = 160, 20  # top-left corner
 
 
     last_result = None
@@ -175,17 +175,6 @@ def main():
                                     motion_count = 0 
                             # else:
                             #     motion_count = 0
-                        gesture_text = state_to_gesture(state_step)
-                        if gesture_text:
-                            cv2.putText(
-                                result_image,
-                                gesture_text,
-                                (250, 100),
-                                cv2.FONT_HERSHEY_SIMPLEX,
-                                2,
-                                (0, 255, 0),
-                                3
-                            )
                         if state_step in [0,2,4]:
                             gesture_img = gesture_down
                             # result_image[y_img:y_img+h, x_img:x_img+w] = gesture_img
@@ -194,6 +183,18 @@ def main():
                             gesture_img = gesture_up
                             # result_image[y_img:y_img+h, x_img:x_img+w] = gesture_img
                             overlay_image(result_image, gesture_img, x_img, y_img)
+                        gesture_text = state_to_gesture(state_step)
+                        if gesture_text:
+                            cv2.putText(
+                                result_image,
+                                gesture_text,
+                                (280, 80),
+                                cv2.FONT_HERSHEY_SIMPLEX,
+                                1.25,
+                                (0, 255, 0),
+                                3
+                            )
+                        
                         if state_step == 5:
                             GAME.round_on_going = True
                             round_start_frame = frame_id
