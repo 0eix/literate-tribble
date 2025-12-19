@@ -116,7 +116,7 @@ def main():
     motion_count = 0
     state_step = 0 
     frame_id = 0
-    PREDICT_DELAY_FRAMES = int(1 * fps)  # ~0.5 seconds
+    PREDICT_DELAY_FRAMES = int(2 * fps)  # ~0.5 seconds
     round_start_frame = None
     h, w =  150,150
     gesture_up = cv2.imread("literate-tribble-yiran/assets/up_image.png")
@@ -148,8 +148,8 @@ def main():
             
 # WIP -------------------------------------------------------------------------------------------------------
             if models.latest_result:
-                # result_image = draw_landmarks_on_image(image, models.latest_result)
-                result_image = image
+                result_image = draw_landmarks_on_image(image, models.latest_result)
+                # result_image = image
                 if models.latest_result.hand_landmarks:
                     CoM = np.mean([p.y for p in models.latest_result.hand_landmarks[0]],)
                     history_CoM.append(CoM)
