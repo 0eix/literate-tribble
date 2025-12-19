@@ -19,7 +19,7 @@ PLAYER1.gesture = game.Gesture.ROCK
 PLAYER2.gesture = game.Gesture.PAPER
 GAME = game.Game(PLAYER1, PLAYER2)
 # Load NN model
-with open("model.pkl", "rb") as f:
+with open("literate-tribble-yiran/models/model_new.pkl", "rb") as f:
     modelNN = pickle.load(f)
 
 def extract_landmarks(hand):
